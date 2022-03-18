@@ -1,0 +1,6 @@
+target/generated-sources/openapi/README.md
+target/generated-sources/openapi/pom.xml
+api/target/generated-sources/openapi/.openapi-codegen-ignore
+target/generated-sources/openapi/**/application.properties
+target/generated-sources/openapi/**/OpenAPI2SpringBoot.java
+target/generated-sources/openapi/**/configuration/*

@@ -1,0 +1,87 @@
+openapi: 3.0.2
+
+info:
+  title: Microservice Blank API #todo replace!
+  description: Blank for feather project (Need to be replaced) #todo replace!
+  version: 1.0.0
+  contact:
+    name: Andrew Belunov
+    email: cyberpunk.perosn@gmail.com
+
+tags:
+  - name: tests
+    description: blank description
+
+paths:
+
+  /tests:
+
+    get:
+      tags:
+        - tests
+      summary: getTests
+      description: Get tests response
+      operationId: getTests
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTestsResponse'
+        400:
+          $ref: '#/components/responses/Error'
+        401:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+
+components:
+
+  responses:
+
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+
+    GetTestsResponse:
+      type: object
+      required:
+        - payload
+      properties:
+        payload:
+          description: List of existing items
+          type: string
+
+    ErrorResponse:
+      description: Error response
+      type: object
+      required:
+        - errorId
+        - errorCode
+        - errorMessage
+      properties:
+        errorId:
+          description: Error identificator
+          type: string
+          minLength: 16
+          maxLength: 16
+          example: 02d55cabb05b44f0
+        errorCode:
+          description: Service error code
+          type: string
+          minLength: 1
+          example: InternalServerError
+        errorMessage:
+          description: service error message
+          type: string
+          minLength: 1
+          example: Internal server error
+        errorDetails:
+          description: Error details
+          type: object
