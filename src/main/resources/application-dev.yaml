@@ -4,7 +4,7 @@ spring:
 
 server:
   servlet:
-    context-path: /blank
+    context-path: /blank #todo replace
 
 logging:
   level:
