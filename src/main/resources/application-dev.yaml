@@ -1,12 +1,6 @@
 spring:
   application:
     name: microservice-blank #todo replace!
-  jackson:
-    default-property-inclusion: non_null
-    serialization.FAIL_ON_EMPTY_BEANS: false
-    deserialization:
-      FAIL_ON_UNKNOWN_PROPERTIES: false
-      READ_UNKNOWN_ENUM_VALUES_AS_NULL: true
 
 server:
   servlet:
