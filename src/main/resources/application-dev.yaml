@@ -5,6 +5,8 @@ spring:
 server:
   servlet:
     context-path: /blank #todo replace
+  openapi:
+    enabled: false
 
 logging:
   level:
