@@ -4,11 +4,10 @@ import com.github.cyberpunkperson.errorchef.core.error.EnumErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Getter
+@RequiredArgsConstructor
 public enum ValidationErrorCode implements EnumErrorCode.Validation {
 
-    CACHE_NOT_FOUND("Cache not found"),
 
     ;
 

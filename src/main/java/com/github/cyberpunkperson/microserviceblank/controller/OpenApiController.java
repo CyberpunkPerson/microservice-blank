@@ -1,6 +1,6 @@
 package com.github.cyberpunkperson.microserviceblank.controller;
 
-import com.github.cyberpunkperson.microserviceblank.helper.OpenApiProvider;
+import com.github.cyberpunkperson.microserviceblank.support.OpenApiProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.GetMapping;
