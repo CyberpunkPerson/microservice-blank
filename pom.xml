@@ -20,6 +20,8 @@
     <properties>
         <java.version>17</java.version>
 
+        <errorchef-core.version>1.0.0</errorchef-core.version>
+
         <!--Code Generation-->
         <mapstruct.version>1.4.2.Final</mapstruct.version>
     </properties>
@@ -28,6 +30,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.cyberpunkperson</groupId>
+            <artifactId>errorchef-core</artifactId>
+            <version>${errorchef-core.version}</version>
         </dependency>
 
         <!--Cache-->
