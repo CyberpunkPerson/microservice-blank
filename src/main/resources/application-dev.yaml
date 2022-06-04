@@ -13,3 +13,29 @@ logging:
     com.github.cyberpunkperson: debug #todo replace!
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X] %logger{80} %msg%n'
+
+management:
+  server.port: 8084
+  metrics:
+    export.prometheus.enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      maximum-expected-value:
+        http.server.requests: 10s
+      minimum-expected-value:
+        http.server.requests: 10ms
+  endpoint:
+    metrics.enabled: true
+    prometheus.enabled: true
+    mappings.enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+      path-mapping.prometheus: /metrics
+      exposure.include: prometheus,health
