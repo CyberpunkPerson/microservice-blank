@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.microserviceblank.helper;
+package com.github.cyberpunkperson.microserviceblank.support;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

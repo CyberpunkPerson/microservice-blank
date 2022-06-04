@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum InvocationErrorCode implements EnumErrorCode.Invocation {
 
-
     ;
 
     private final String message;
