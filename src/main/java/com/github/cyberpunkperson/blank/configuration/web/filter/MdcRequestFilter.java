@@ -1,27 +1,26 @@
-package com.github.cyberpunkperson.microserviceblank.configuration.web.filter;
+package com.github.cyberpunkperson.blank.configuration.web.filter;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.github.cyberpunkperson.microserviceblank.support.constants.MdcKey.OPERATION_NAME;
-import static com.github.cyberpunkperson.microserviceblank.support.constants.MdcKey.TRACE_ID;
+import static com.github.cyberpunkperson.blank.support.constants.MdcKey.TRACE_ID;
+import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 @RequiredArgsConstructor
 public class MdcRequestFilter extends OncePerRequestFilter {
@@ -45,8 +44,11 @@ public class MdcRequestFilter extends OncePerRequestFilter {
         }
 
         try {
-            MDC.put(OPERATION_NAME, operationName.get());
+//            todo replace
+            MDC.put("operationName", operationName.get());
             filterChain.doFilter(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e); //todo rid of
         } finally {
             MDC.clear();
         }

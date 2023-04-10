@@ -1,0 +1,170 @@
+openapi: 3.0.3
+
+info:
+  title: Cache API
+  description: Cache API
+  version: 1.0.0
+
+tags:
+  - name: cache
+    description: Cache
+
+paths:
+
+  /caches/{cacheName}/entities:
+
+    get:
+      tags:
+        - cache
+      summary: getAllEntities
+      description: Return all cache entities
+      operationId: getAllEntities
+      parameters:
+        - in: path
+          name: cacheName
+          description: Cache name
+          schema:
+            type: string
+          required: true
+          example: userCache
+      responses:
+        200:
+          description: OK
+          headers:
+            x-trace-id:
+              $ref: '#/components/headers/XTraceId'
+            x-server-time:
+              $ref: '#/components/headers/XServerTime'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Entity'
+        400:
+          $ref: '#/components/responses/Error'
+        401:
+          $ref: '#/components/responses/Error'
+        422:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - cache
+      summary: deleteAllEntities
+      description: Delete all cache entities
+      operationId: deleteAllEntities
+      parameters:
+        - in: path
+          name: cacheName
+          description: Cache name
+          schema:
+            type: string
+          required: true
+          example: userCache
+      responses:
+        200:
+          description: OK
+          headers:
+            x-trace-id:
+              $ref: '#/components/headers/XTraceId'
+            x-server-time:
+              $ref: '#/components/headers/XServerTime'
+        400:
+          $ref: '#/components/responses/Error'
+        401:
+          $ref: '#/components/responses/Error'
+        422:
+          $ref: '#/components/responses/Error'
+        500:
+          $ref: '#/components/responses/Error'
+
+components:
+
+  headers:
+
+    XTraceId:
+      description: Trace response identifier
+      schema:
+        type: string
+        minLength: 1
+      required: true
+
+    XServerTime:
+      description: Server response timestamp
+      schema:
+        type: string
+        format: date-time
+      required: true
+
+  parameters:
+
+    TraceId:
+      description: Trace response identifier
+      name: x-trace-id
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 1
+
+  responses:
+
+    Error:
+      description: Error
+      headers:
+        x-trace-id:
+          $ref: '#/components/headers/XTraceId'
+        x-server-time:
+          $ref: '#/components/headers/XServerTime'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+
+    Entity:
+      type: object
+      description: Key-Value pair
+      required:
+        - key
+        - value
+      properties:
+        key:
+          description: Key
+          type: object
+          example: { "username": "Bill", "item": "book" }
+        value:
+          description: Value
+          type: object
+          example: { "type": "share", "risk": "medium" }
+
+    ErrorResponse:
+      description: Error response
+      type: object
+      required:
+        - errorId
+          - errorCode
+          - errorMessage
+      properties:
+        errorId:
+          description: Error identificator
+          type: string
+          minLength: 16
+          maxLength: 16
+          example: 02d55cabb05b44f0
+        errorCode:
+          description: Service error code
+          type: string
+          minLength: 1
+          example: InternalServerError
+        errorMessage:
+          description: service error message
+          type: string
+          minLength: 1
+          example: Internal server error
+        errorDetails:
+          description: Error details
+          type: object

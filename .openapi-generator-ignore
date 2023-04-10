@@ -1,0 +1,8 @@
+build/generated/sources/openapi/**/README.md
+build/generated/sources/openapi/**/pom.xml
+build/generated/sources/openapi/**/.openapi-generator-ignore
+build/generated/sources/openapi/**/application.properties
+build/generated/sources/openapi/**/openapi.yaml
+build/generated/sources/openapi/**/OpenApiGeneratorApplication.java
+build/generated/sources/openapi/**/configuration/
+build/generated/sources/openapi/**/test/

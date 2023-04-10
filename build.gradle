@@ -1,0 +1,130 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+buildscript {
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:$openApiGenerator"
+    }
+}
+
+plugins {
+    id "org.springframework.boot" version "$springVersion"
+    id "org.openapi.generator" version "$openApiGenerator"
+    id "com.google.protobuf" version "0.9.1"
+    id "application"
+    id "idea"
+}
+
+group = 'com.github.cyberpunkperson'
+version = '1.0.0'
+
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "src/main/resources/proto"
+        }
+        java {
+            srcDir "$buildDir/generated/sources/openapi/main"
+            srcDir "$buildDir/generated/sources/proto/main"
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.9"
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+compileJava {
+    targetCompatibility = JavaVersion.toVersion(17)
+    sourceCompatibility = JavaVersion.toVersion(17)
+}
+
+dependencies {
+    implementation platform(SpringBootPlugin.BOM_COORDINATES)
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    implementation 'ru.tinkoff:eclair-spring-boot-starter:0.8.4'
+
+//    implementaion platform("com.github.cyberpunkperson.essentials:essentials-bom:1.0.0") todo replace on bom
+
+    implementation platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion")
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
+    implementation "com.github.ben-manes.caffeine:caffeine:$caffeineVersion"
+
+//    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+//    testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+//    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
+//
+//    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+//    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task generateCacheControllers(type: GenerateTask) {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/openapi/cache-v1.yaml".toString()
+    outputDir = "$buildDir/generated/sources/openapi/main".toString()
+    packageName = "com.github.cyberpunkperson.blank.cache"
+    apiPackage = "com.github.cyberpunkperson.blank.cache.rest"
+    modelPackage = "com.github.cyberpunkperson.blank.cache.model"
+    ignoreFileOverride = "$projectDir/.openapi-generator-ignore"
+    configOptions = [
+            documentationProvider: "none",
+            openApiNullable      : "false",
+            delegatePattern      : "true",
+            useTags              : "true",
+            useSpringBoot3       : "true",
+            booleanGetterPrefix  : "is",
+            performBeanValidation: "true",
+            dateLibrary          : "java8"
+    ]
+}
+
+configurations {
+    testCompileOnly.extendsFrom compileOnly
+    testAnnotationProcessor.extendsFrom annotationProcessor
+    testImplementation.extendsFrom implementation
+}
+
+compileJava.dependsOn tasks.generateCacheControllers
+
+application {
+    mainClass = "com.github.cyberpunkperson.blank.Application"
+}
+
+//distTar {
+//    archiveName "app.tar"
+//}

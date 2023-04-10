@@ -1,5 +1,6 @@
-package com.github.cyberpunkperson.microserviceblank.configuration.web.filter;
+package com.github.cyberpunkperson.blank.configuration.web.filter;
 
+import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,9 +9,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.filter.ServletRequestPathFilter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.servlet.Filter;
-
-import static com.github.cyberpunkperson.microserviceblank.configuration.web.filter.WebFilterOrder.*;
+import static com.github.cyberpunkperson.blank.configuration.web.filter.WebFilterOrder.*;
 
 
 @Configuration(proxyBeanMethods = false)

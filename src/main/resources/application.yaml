@@ -1,6 +1,6 @@
 spring:
   application:
-    name: microservice-blank #todo replace!
+    name: blank #todo replace!
   jackson:
     default-property-inclusion: non_null
     serialization.FAIL_ON_EMPTY_BEANS: false
@@ -16,10 +16,9 @@ server:
 logging:
   level:
     root: info
-    org.springframework.boot.web.servlet: trace
     com.github.cyberpunkperson: debug #todo replace!
   pattern:
-    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X] %logger{80} %msg%n'
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS UTC} [%thread] %-5level [%X] %logger{35} %msg%n'
 
 management:
   server.port: 8084

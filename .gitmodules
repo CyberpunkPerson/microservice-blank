@@ -1,4 +1,0 @@
-[submodule "openapi-common"]
-	path = src/main/resources/openapi/common
-	url = https://github.com/CyberpunkPerson/openapi-contract-common.git
-	branch = main

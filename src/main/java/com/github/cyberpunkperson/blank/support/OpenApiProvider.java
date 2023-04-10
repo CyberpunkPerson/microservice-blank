@@ -1,18 +1,18 @@
-package com.github.cyberpunkperson.microserviceblank.support;
+package com.github.cyberpunkperson.blank.support;
 
+import jakarta.servlet.ServletContext;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Component
-@ConditionalOnProperty(value = "server.openapi.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(value = "server.openapi.enabled", havingValue = "true")
 public class OpenApiProvider {
 
     @Getter

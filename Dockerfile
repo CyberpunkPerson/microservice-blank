@@ -1,3 +1,4 @@
+# todo fix
 ARG JAVA_IMAGE=openjdk:17
 
 FROM maven:3.8.5-openjdk-17-slim as build

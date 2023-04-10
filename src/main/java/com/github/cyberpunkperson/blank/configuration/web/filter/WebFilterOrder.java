@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.microserviceblank.configuration.web.filter;
+package com.github.cyberpunkperson.blank.configuration.web.filter;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
