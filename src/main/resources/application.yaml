@@ -20,6 +20,9 @@ logging:
   pattern:
     console: '%d{yyyy-MM-dd HH:mm:ss.SSS UTC} [%thread] %-5level [%X] %logger{35} %msg%n'
 
+cache:
+  endpointEnable: false
+
 management:
   server.port: 8084
   metrics:

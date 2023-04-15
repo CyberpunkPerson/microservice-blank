@@ -1,26 +1,26 @@
-package com.github.cyberpunkperson.blank.support.cache.operation;
+package com.github.cyberpunkperson.blank.configuration.cache.operation;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.cyberpunkperson.blank.cache.model.Entity;
-import com.github.cyberpunkperson.blank.support.cache.NamedCache;
-import org.springframework.stereotype.Component;
+import com.github.cyberpunkperson.blank.configuration.cache.NamedCache;
+import com.github.cyberpunkperson.essentials.error.core.exception.ExceptionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.cyberpunkperson.blank.error.BusinessErrorCode.CACHE_NOT_FOUND;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 
-@Component
 public class GetAllCacheEntitiesOperation {
 
-    //    private final ExceptionFactory exceptionFactory;
     private final Map<String, Cache<?, ?>> cacheMap;
+    private final ExceptionFactory exceptionFactory;
 
-    public GetAllCacheEntitiesOperation(List<NamedCache> caches) {
+    public GetAllCacheEntitiesOperation(List<NamedCache> caches, ExceptionFactory exceptionFactory) {
         this.cacheMap = caches.stream().collect(toMap(NamedCache::name, NamedCache::cache));
-//        this.exceptionFactory = exceptionFactory;
+        this.exceptionFactory = exceptionFactory;
     }
 
     public List<Entity> activate(String cacheName) {
@@ -31,7 +31,11 @@ public class GetAllCacheEntitiesOperation {
                     innerCache.forEach((key, value) -> entities.add(convertToCacheEntity(key, value)));
                     return entities;
                 })
-                .orElseThrow(() -> new IllegalArgumentException("Replace on ExceptionFactory"));
+                .orElseThrow(() -> {
+                    throw exceptionFactory.builder(CACHE_NOT_FOUND)
+                            .arg("cacheName", cacheName)
+                            .build();
+                });
     }
 
     private <K, V> Entity convertToCacheEntity(K key, V value) {

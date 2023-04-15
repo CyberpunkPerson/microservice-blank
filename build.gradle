@@ -65,7 +65,8 @@ dependencies {
 
     implementation 'ru.tinkoff:eclair-spring-boot-starter:0.8.4'
 
-//    implementaion platform("com.github.cyberpunkperson.essentials:essentials-bom:1.0.0") todo replace on bom
+    implementation platform("com.github.cyberpunkperson.essentials:essentials-bom:$essentialsVersion")
+    implementation "com.github.cyberpunkperson.essentials:spring-web-error-handler"
 
     implementation platform("com.fasterxml.jackson:jackson-bom:$jacksonVersion")
     implementation "com.fasterxml.jackson.core:jackson-databind"

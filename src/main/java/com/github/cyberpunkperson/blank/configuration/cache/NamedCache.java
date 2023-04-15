@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.blank.support.cache;
+package com.github.cyberpunkperson.blank.configuration.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 

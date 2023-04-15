@@ -1,12 +1,11 @@
-package com.github.cyberpunkperson.blank.support.cache.controller;
+package com.github.cyberpunkperson.blank.configuration.cache.controller;
 
 import com.github.cyberpunkperson.blank.cache.model.Entity;
 import com.github.cyberpunkperson.blank.cache.rest.CacheApiDelegate;
-import com.github.cyberpunkperson.blank.support.cache.operation.EvictAllCacheEntitiesOperation;
-import com.github.cyberpunkperson.blank.support.cache.operation.GetAllCacheEntitiesOperation;
+import com.github.cyberpunkperson.blank.configuration.cache.operation.EvictAllCacheEntitiesOperation;
+import com.github.cyberpunkperson.blank.configuration.cache.operation.GetAllCacheEntitiesOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import ru.tinkoff.eclair.annotation.Log;
 
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.List;
 import static org.springframework.boot.logging.LogLevel.INFO;
 import static org.springframework.http.ResponseEntity.ok;
 
-@Component //todo make conditional
 @RequiredArgsConstructor
 public class CacheController implements CacheApiDelegate {
 
@@ -22,7 +20,7 @@ public class CacheController implements CacheApiDelegate {
     private final GetAllCacheEntitiesOperation getAllCacheEntitiesOperation;
 
     @Override
-    @Log(INFO)
+    @Log(INFO) //todo serverTime и TraceId
     public ResponseEntity<Void> deleteAllEntities(String cacheName) {
         evictAllCacheEntitiesOperation.activate(cacheName);
         return ok().build();
