@@ -1,6 +1,6 @@
 spring:
   application:
-    name: blank #todo replace!
+    name: template #todo replace!
   jackson:
     default-property-inclusion: non_null
     serialization.FAIL_ON_EMPTY_BEANS: false
@@ -9,7 +9,7 @@ spring:
 
 server:
   servlet:
-    context-path: /blank #todo replace
+    context-path: /template #todo replace
   openapi:
     enabled: true
 

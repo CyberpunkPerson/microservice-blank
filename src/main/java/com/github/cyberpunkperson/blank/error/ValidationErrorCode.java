@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.blank.error;
+package com.github.cyberpunkperson.template.error;
 
 import com.github.cyberpunkperson.essentials.error.core.EnumErrorCode;
 import lombok.Getter;

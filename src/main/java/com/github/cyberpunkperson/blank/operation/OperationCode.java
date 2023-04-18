@@ -1,12 +1,12 @@
-package com.github.cyberpunkperson.blank.operation;
+package com.github.cyberpunkperson.template.operation;
 
 
 import com.github.cyberpunkperson.essentials.operation.EnumOperationCode;
 
 public enum OperationCode implements EnumOperationCode {
 
-    CACHE_GET_ALL_ENTITIES,
-    CACHE_EVICT_ALL_ENTITIES,
+    GET_ALL_CACHE_ENTITIES,
+    EVICT_ALL_CACHE_ENTITIES,
 
     ;
 

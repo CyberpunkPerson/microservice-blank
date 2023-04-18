@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.blank.support;
+package com.github.cyberpunkperson.template.support;
 
 import jakarta.servlet.ServletContext;
 import lombok.Getter;
@@ -18,7 +18,7 @@ public class OpenApiProvider {
     @Getter
     private final String preparedContract;
 
-    public OpenApiProvider(@Value("classpath:openapi/blank-contract.yaml") Resource contractResource,
+    public OpenApiProvider(@Value("classpath:openapi/template-contract.yaml") Resource contractResource,
                            ServletContext servletContext) throws IOException {
         String contractString = new String(contractResource.getInputStream().readAllBytes(), UTF_8);
 

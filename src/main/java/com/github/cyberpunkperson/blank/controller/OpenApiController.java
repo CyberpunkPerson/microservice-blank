@@ -1,6 +1,6 @@
-package com.github.cyberpunkperson.blank.controller;
+package com.github.cyberpunkperson.template.controller;
 
-import com.github.cyberpunkperson.blank.support.OpenApiProvider;
+import com.github.cyberpunkperson.template.support.OpenApiProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.bind.annotation.GetMapping;

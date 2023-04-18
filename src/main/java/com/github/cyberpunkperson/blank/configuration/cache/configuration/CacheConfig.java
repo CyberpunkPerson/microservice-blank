@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.blank.configuration.cache.configuration;
+package com.github.cyberpunkperson.template.configuration.cache.configuration;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

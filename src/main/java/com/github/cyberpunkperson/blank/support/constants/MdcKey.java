@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.blank.support.constants;
+package com.github.cyberpunkperson.template.support.constants;
 
 import lombok.experimental.UtilityClass;
 

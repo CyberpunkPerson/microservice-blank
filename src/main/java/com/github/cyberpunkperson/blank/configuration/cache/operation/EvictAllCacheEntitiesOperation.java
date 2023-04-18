@@ -1,13 +1,13 @@
-package com.github.cyberpunkperson.blank.configuration.cache.operation;
+package com.github.cyberpunkperson.template.configuration.cache.operation;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.github.cyberpunkperson.blank.configuration.cache.NamedCache;
 import com.github.cyberpunkperson.essentials.error.core.exception.ExceptionFactory;
+import com.github.cyberpunkperson.template.configuration.cache.NamedCache;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.github.cyberpunkperson.blank.error.BusinessErrorCode.CACHE_NOT_FOUND;
+import static com.github.cyberpunkperson.template.error.BusinessErrorCode.CACHE_NOT_FOUND;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toMap;
 

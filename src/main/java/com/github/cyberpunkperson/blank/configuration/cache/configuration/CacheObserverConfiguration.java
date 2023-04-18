@@ -1,10 +1,10 @@
-package com.github.cyberpunkperson.blank.configuration.cache.configuration;
+package com.github.cyberpunkperson.template.configuration.cache.configuration;
 
-import com.github.cyberpunkperson.blank.configuration.cache.NamedCache;
-import com.github.cyberpunkperson.blank.configuration.cache.controller.CacheController;
-import com.github.cyberpunkperson.blank.configuration.cache.operation.EvictAllCacheEntitiesOperation;
-import com.github.cyberpunkperson.blank.configuration.cache.operation.GetAllCacheEntitiesOperation;
 import com.github.cyberpunkperson.essentials.error.core.exception.ExceptionFactory;
+import com.github.cyberpunkperson.template.configuration.cache.NamedCache;
+import com.github.cyberpunkperson.template.configuration.cache.controller.CacheController;
+import com.github.cyberpunkperson.template.configuration.cache.operation.EvictAllCacheEntitiesOperation;
+import com.github.cyberpunkperson.template.configuration.cache.operation.GetAllCacheEntitiesOperation;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

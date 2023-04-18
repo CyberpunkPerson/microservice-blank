@@ -1,4 +1,4 @@
-package com.github.cyberpunkperson.blank;
+package com.github.cyberpunkperson.template;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
