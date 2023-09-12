@@ -1,0 +1,22 @@
+include:
+  - project: 'kickoff4/pipeline-support'
+    ref: 'main'
+    file: 'template/k8s/build.yml'
+
+stages:
+  - build
+  - deploy
+
+k8s-qa:
+  stage: deploy
+  needs: [build]
+  variables:
+    ENV: qa
+    VALUES_PATH: k8s/qa/values.yaml
+    NAMESPACE: default
+  trigger:
+    include:
+      - project: 'kickoff4/pipeline-support'
+        ref: 'main'
+        file: 'template/k8s/deploy.yml'
+    strategy: depend

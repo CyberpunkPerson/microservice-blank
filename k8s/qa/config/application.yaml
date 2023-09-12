@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: template #todo replace!
+  jackson:
+    default-property-inclusion: non_null
+    serialization.FAIL_ON_EMPTY_BEANS: false
+    deserialization.FAIL_ON_UNKNOWN_PROPERTIES: false
+    deserialization.READ_UNKNOWN_ENUM_VALUES_AS_NULL: true
+
+server:
+  servlet:
+    context-path: /template #todo replace
+
+openapi:
+  enabled: true
+  context-path: /template
+  contract-path: openapi/cache-v1.yaml
+
+logging:
+  level:
+    root: info
+    com.github.cyberpunkperson: debug #todo replace!
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS UTC} [%thread] %-5level [%X] %logger{35} %msg%n'
+
+cache:
+  isEndpointEnabled: false
+
+management:
+  server.port: 8084
+  metrics:
+    export.prometheus.enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      maximum-expected-value:
+        http.server.requests: 10s
+      minimum-expected-value:
+        http.server.requests: 10ms
+  endpoint:
+    metrics.enabled: true
+    prometheus.enabled: true
+    mappings.enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+      path-mapping.prometheus: /metrics
+      exposure.include: prometheus,health

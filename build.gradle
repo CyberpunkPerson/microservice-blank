@@ -16,7 +16,7 @@ plugins {
 }
 
 group = 'com.github.cyberpunkperson'
-version = '1.0.0'
+version = System.getenv().getOrDefault("PROJECT_VERSION", "0.1.0-SNAPSHOT")
 
 idea {
     module {
@@ -40,6 +40,18 @@ protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:3.21.9"
     }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.52.1"
+        }
+    }
+    generateProtoTasks {
+        all().forEach {
+            it.plugins {
+                grpc {}
+            }
+        }
+    }
 }
 
 java {
@@ -51,6 +63,16 @@ java {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+        url = System.getenv().getOrDefault("PACKAGE_REGISTRY_URL", "")
+        credentials(HttpHeaderCredentials) {
+            name = System.getenv().getOrDefault("PACKAGE_REGISTRY_TOKEN_NAME", "")
+            value = System.getenv().getOrDefault("PACKAGE_REGISTRY_TOKEN", "")
+        }
+        authentication {
+            header(HttpHeaderAuthentication)
+        }
+    }
 }
 
 compileJava {
@@ -126,6 +148,6 @@ application {
     mainClass = "com.github.cyberpunkperson.template.Application"
 }
 
-//distTar {
-//    archiveName "app.tar"
-//}
+distTar {
+    archiveName "app.tar"
+}

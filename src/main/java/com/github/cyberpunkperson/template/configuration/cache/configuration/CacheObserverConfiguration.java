@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(name = "cache.endpointEnable", havingValue = "true")
+@ConditionalOnProperty(name = "cache.isEndpointEnabled", havingValue = "true")
 class CacheObserverConfiguration {
 
     @Bean

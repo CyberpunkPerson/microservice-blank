@@ -1,0 +1,85 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+---
+serviceName: kora-microservice-template
+
+replicaCount: 2
+updateStrategy:
+  maxUnavailable: 0
+  maxSurge: 1
+  deployStrategy: RollingUpdate
+
+resources:
+  limits:
+    cpu: 150m
+    memory: 256Mi
+  requests:
+    cpu: 150m
+    memory: 256Mi
+
+volumes:
+  emptyDir:
+    mountPathList:
+      - /tmp
+
+vault:
+  enabled: true
+  k8s_cluster: dev
+  role: dev_ro
+
+env_vars:
+  - name: TZ
+    value: UTC
+  - name: JAVA_OPTS
+    value: "-Dconfig.file=/opt/app/config/application.conf -Xmx192m -XX:+UseParallelGC -XX:+ExitOnOutOfMemoryError"
+  - name: ENABLE_OPENAPI
+    value: vault:kickoff/data/application-secrets/qa/template#enable-openapi
+
+entrypoint_args:
+
+configs:
+  sourcePath: "k8s/qa/config/*"
+  targetPath: "/opt/app/config/"
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-staging"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  hosts:
+    - host: qa.kickoff.kz
+      paths:
+        - path: /template(/|$)(.*)
+          pathType: Prefix
+
+collect_metrics:
+  enabled: true
+  path: "/metrics"
+  port: 8085
+
+filebeat:
+  enabled: false
+
+livenessProbe:
+  httpGet:
+    path: /system/liveness
+    port: 8085
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /system/readiness
+    port: 8085
+  periodSeconds: 5
+  failureThreshold: 4
+
+startupProbe:
+  httpGet:
+    path: /system/liveness
+    port: 8085
+  periodSeconds: 10
+  failureThreshold: 30
+
+terminationGracePeriodSeconds: 70

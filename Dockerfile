@@ -1,15 +1,19 @@
-# todo fix
-ARG JAVA_IMAGE=openjdk:17
+ARG JAVA_BUILD_IMAGE
+ARG JAVA_RUNTIME_IMAGE
 
-FROM maven:3.8.5-openjdk-17-slim as build
+FROM ${JAVA_BUILD_IMAGE} as build
+
 COPY . .
-RUN mvn -B -Dmaven.repo.local=.m2/repository package
+ARG PACKAGE_REGISTRY_URL
+ARG PACKAGE_REGISTRY_TOKEN_NAME
+ARG PACKAGE_REGISTRY_TOKEN
+RUN ./gradlew --no-build-cache --no-daemon -PPACKAGE_REGISTRY_URL=${PACKAGE_REGISTRY_URL} -PPACKAGE_REGISTRY_TOKEN_NAME=${PACKAGE_REGISTRY_TOKEN_NAME} -PPACKAGE_REGISTRY_TOKEN=${PACKAGE_REGISTRY_TOKEN} installDist
 
-FROM ${JAVA_IMAGE} as extractor
+FROM ${JAVA_BUILD_IMAGE} as extractor
 COPY --from=build /target/*.jar /app/app.jar
 RUN java -Djarmode=layertools -jar /app/app.jar extract --destination /extract/
 
-FROM ${JAVA_IMAGE}
+FROM ${JAVA_BUILD_IMAGE}
 WORKDIR app
 COPY --from=extractor /extract/dependencies/ ./
 COPY --from=extractor /extract/spring-boot-loader/ ./
